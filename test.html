@@ -1,0 +1,81 @@
+<button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalLogin">Login</button>
+<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#ModalRegister">Register</button>
+
+<!--Modal Login-->
+<div class="modal fade" id="ModalLogin">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Login Revilm</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="cek_login.php" method="post" role="form">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" name="namaU" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" name="passU" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Login sebagai</label>
+                        <select class="form-control" name="roleU">
+                            <option value="" selected> - Pilih Status - </option>
+                            <option value="Admin">Admin</option>
+                            <option value="Anggota">Anggota</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" name="login" class="btn btn-primary">Login</button>
+                    <button type="button" name="batal" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--Modal Regsister-->
+<div class="modal fade" id="ModalRegister">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Registrasi User</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="simpan_user.php" method="post" role="form">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Nama</label>
+                        <input type="text" name="namaU" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" name="emailU" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Registrasi sebagai</label>
+                        <select class="form-control" name="roleU">
+                            <option value="" selected> - Pilih Status - </option>
+                            <option value="Anggota">Anggota</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Tentukan Password</label>
+                        <input type="password" name="passU" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" name="daftar" class="btn btn-primary">Daftar</button>
+                    <button type="button" name="batal" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

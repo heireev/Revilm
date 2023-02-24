@@ -1,0 +1,85 @@
+<?php
+            include 'db/koneksi.php';
+            $query = mysqli_query($koneksi, "select*from page");
+            $row = mysqli_fetch_array($query);
+            $page = $row['page_num'];
+            if ($page == 0) {
+                echo "$('.nav-link').removeClass('active');";
+                echo "$('#menuFilm').addClass('active');";
+                echo "$('#content').load('daftar_film/daftarFilm.php');";
+            } elseif ($page == 1) {
+                echo "$('.nav-link').removeClass('active');";
+                echo "$('#menuTamu').addClass('active');";
+                echo "$('#content').load('data_tamu/lihat_tamu.php');";
+            } elseif ($page == 2) {
+                echo "$('.nav-link').removeClass('active');";
+                echo "$('#menuSettings').addClass('active');";
+                echo "$('#content').load('settings.php');";
+            }
+            ?>
+
+===
+
+
+if (isset($_POST['login'])) {
+    include "db/koneksi.php";
+
+    $user = mysqli_real_escape_string($konekdb, htmlentities($_POST['namaU']));
+    $pass = mysqli_real_escape_string($konekdb, htmlentities($_POST['passU']));
+    $role = mysqli_real_escape_string($konekdb, htmlentities($_POST['roleU']));
+
+    $sql = mysqli_query($konekdb, "SELECT * FROM tbl_user WHERE nama_user='$user' and role='$role' and pass_user='$pass'");
+    if (mysqli_num_rows($sql) == 0) {
+        echo '<script>alert("ID User atau password salah!");</script>';
+        header("Location: beranda.php");
+    } else {
+        //login berhasil
+        $_SESSION['role'] = $role;
+        $_SESSION['nama_user'] = $user;
+        $_SESSION['my_user_agent'] = md5($_SERVER['HTTP_USER_AGENT']);
+        header("Location: beranda.php");
+    }
+}
+
+===
+
+<!-- Otentikasi Login -->
+<?php
+defined('__NOT_DIRECT') || define('__NOT_DIRECT', 1);
+include 'cek_akses.php';
+
+if (isset($_POST['login'])) {
+    include "db/koneksi.php";
+
+    $user = mysqli_real_escape_string($koneksi, htmlentities($_POST['namaU']));
+    $pass = mysqli_real_escape_string($koneksi, htmlentities($_POST['passU']));
+    $role = mysqli_real_escape_string($koneksi, htmlentities($_POST['roleU']));
+
+    $sql = mysqli_query($koneksi, "SELECT * FROM tbl_user WHERE nama_user='$user' and role='$role' and pass_user='$pass'");
+    if (mysqli_num_rows($sql) == 0) {
+        echo '<script>confirm("username/password/role tidak sesuai!");</script>';
+        echo '<a href="beranda-guest.php">kembali</a>';
+    } else {
+        //login berhasil
+        $_SESSION['user'] = array(
+            'role' => $role,
+            'nama_user' => $user
+        );
+
+        $_SESSION['role'] = $role;
+        $_SESSION['nama_user'] = $user;
+        $_SESSION['my_user_agent'] = md5($_SERVER['HTTP_USER_AGENT']);
+        header("Location: beranda.php");
+    }
+}
+?>
+
+===
+
+$allow = in_array($currentPath, $__akses_config);
+
+if (!$allow) {
+    echo "Anda tidak diizinkan mengakses halaman ini! ";
+    echo $__tipe_user;
+    exit;
+}
